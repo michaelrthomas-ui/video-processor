@@ -151,14 +151,14 @@ app.post('/concatenate', async (req, res) => {
     
     console.log('Uploading to Cloudinary...');
     
-    // Upload result to Cloudinary
-    const result = await cloudinary.uploader.upload(outputFile, {
-      resource_type: 'video',
-      folder: 'combined-videos',
-      public_id: `combined_${timestamp}`
-    });
-    
-    console.log('Upload successful:', result.secure_url);
+// Upload result to Cloudinary
+const uploadResult = await cloudinary.uploader.upload(outputFile, {
+  resource_type: 'video',
+  folder: 'combined-videos',
+  public_id: `combined_${timestamp}`
+});
+
+console.log('Upload successful:', uploadResult.secure_url);
     
     // Cleanup temp files
     tempFiles.forEach(file => {
