@@ -17,17 +17,20 @@ app.use(cors({
 app.use(express.json());
 
 // Configure Cloudinary
+console.log('=== CLOUDINARY CONFIG ===');
+console.log('CLOUDINARY_CLOUD_NAME:', process.env.CLOUDINARY_CLOUD_NAME);
+console.log('CLOUDINARY_API_KEY:', process.env.CLOUDINARY_API_KEY);
+console.log('CLOUDINARY_API_SECRET exists:', !!process.env.CLOUDINARY_API_SECRET);
+console.log('CLOUDINARY_API_SECRET length:', process.env.CLOUDINARY_API_SECRET?.length);
+
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true
 });
 
-// Create temp directory if it doesn't exist
-if (!existsSync('./temp')) {
-  mkdirSync('./temp');
-}
-
+console.log('Cloudinary config set');
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', message: 'Video processor is running' });
